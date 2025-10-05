@@ -1,6 +1,6 @@
 # hyprfocus
 
-a plugin which provides focus animations for us borderless folks, originally inspired by [flashfocus](https://github.com/fennerm/flashfocus)!
+A plugin which provides focus animations for us borderless folks, originally inspired by [flashfocus](https://github.com/fennerm/flashfocus)!
 Modified to work with the latest Hyprland and support hyprpm as well as some other improvements.
 
 ## animations
@@ -18,7 +18,8 @@ shrink
 instructions based on [the official wiki](https://wiki.hyprland.org/Plugins/Using-Plugins/#compiling-official-plugins)
 
 ```
-hyprpm add https://github.com/pyt0xic/hyprfocus
+hyprpm add https://github.com/daxisunder/hyprfocus
+hyprpm enable hyprfocus
 ```
 
 ## getting started
@@ -26,35 +27,38 @@ hyprpm add https://github.com/pyt0xic/hyprfocus
 to start using hyprfocus, add this to your hyprland config:
 
 ```
-    hyprfocus {
-        enabled = yes
-        animate_floating = yes
-        animate_workspacechange = yes
-        focus_animation = shrink
-        # Beziers for focus animations
-        bezier = bezIn, 0.5,0.0,1.0,0.5
-        bezier = bezOut, 0.0,0.5,0.5,1.0
-        bezier = overshot, 0.05, 0.9, 0.1, 1.05
-        bezier = smoothOut, 0.36, 0, 0.66, -0.56
-        bezier = smoothIn, 0.25, 1, 0.5, 1
-        bezier = realsmooth, 0.28,0.29,.69,1.08
-        # Flash settings
-        flash {
-            flash_opacity = 0.95
-            in_bezier = realsmooth
-            in_speed = 0.5
-            out_bezier = realsmooth
-            out_speed = 3
-        }
-        # Shrink settings
-        shrink {
-            shrink_percentage = 0.95
-            in_bezier = realsmooth
-            in_speed = 1
-            out_bezier = realsmooth
-            out_speed = 2
-        }
+plugin {
+  hyprfocus {
+    enabled = yes
+    animate_floating = no
+    animate_workspacechange = no
+    focus_animation = flash
+      # Beziers for focus animations
+    bezier = bezIn, 0.5, 0.0, 1.0, 0.5
+    bezier = bezOut, 0.0, 0.5, 0.5, 1.0
+    bezier = overshot, 0.05, 0.9, 0.1, 1.05
+    bezier = smoothOut, 0.36, 0, 0.66, -0.56
+    bezier = smoothIn, 0.25, 1, 0.5, 1
+    bezier = realsmooth, 0.28, 0.29, 0.69, 1.08
+    bezier = easeInOutBack, 0.68, -0.6, 0.32, 1.6
+      # Flash settings
+    flash {
+      flash_opacity = 0.7
+      in_bezier = bezIn
+      in_speed = 0.5
+      out_bezier = bezOut
+      out_speed = 3
     }
+      # Shrink settings
+    shrink {
+      shrink_percentage = 0.99
+      in_bezier = easeInOutBack
+      in_speed = 1.5
+      out_bezier = easeInOutBack
+      out_speed = 3
+    }
+  }
+}
 ```
 
 ### plugin configuration
@@ -72,9 +76,11 @@ to start using hyprfocus, add this to your hyprland config:
 animations can be configured within the plugin scope with the following syntax:
 
 ```
-plugin:hyprfocus {
-    <animation> {
+plugin {
+    hyprfocus {
+        <animation> {
 
+        }
     }
 }
 ```
@@ -109,3 +115,4 @@ bind = $mod, space, animatefocused
 
 - [flashfocus](https://github.com/fennerm/flashfocus): An earlier project of similar nature
 - [Original repo](https://github.com/VortexCoyote/hyprfocus.git)
+- [upstream](https://github.com/pyt0xic/hyprfocus)
